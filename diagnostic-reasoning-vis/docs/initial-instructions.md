@@ -320,3 +320,4 @@ plt.show()
 - Let's use Playwright MCP for testing
 - Let's use Motion for the animation that we need.
 - I want you to use D3 JS for the chart
+- Deployment should be done on Vercel via MCP
