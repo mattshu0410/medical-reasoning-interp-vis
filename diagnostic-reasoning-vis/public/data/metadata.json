@@ -80,7 +80,7 @@
         "medmcqa-filtered": {
           "display_name": "MedMCQA",
           "has_tsne": false,
-          "num_cases": 1188
+          "num_cases": 1185
         },
         "nejm-cpc": {
           "display_name": "NEJM CPC",
@@ -190,7 +190,7 @@
         "nejm-cpc": {
           "display_name": "NEJM CPC",
           "has_tsne": false,
-          "num_cases": 270
+          "num_cases": 298
         }
       }
     },
@@ -290,7 +290,7 @@
         "medmcqa-filtered": {
           "display_name": "MedMCQA",
           "has_tsne": false,
-          "num_cases": 1188
+          "num_cases": 1185
         },
         "nejm-cpc": {
           "display_name": "NEJM CPC",
@@ -383,12 +383,12 @@
         "medmcqa-filtered": {
           "display_name": "MedMCQA",
           "has_tsne": false,
-          "num_cases": 1184
+          "num_cases": 1182
         },
         "nejm-cpc": {
           "display_name": "NEJM CPC",
           "has_tsne": false,
-          "num_cases": 176
+          "num_cases": 302
         }
       }
     },
@@ -468,7 +468,7 @@
         "medmcqa-filtered": {
           "display_name": "MedMCQA",
           "has_tsne": false,
-          "num_cases": 1188
+          "num_cases": 1185
         },
         "nejm-cpc": {
           "display_name": "NEJM CPC",
@@ -549,7 +549,7 @@
         "medmcqa-filtered": {
           "display_name": "MedMCQA",
           "has_tsne": false,
-          "num_cases": 1188
+          "num_cases": 1185
         },
         "nejm-cpc": {
           "display_name": "NEJM CPC",
@@ -573,7 +573,7 @@
         "medmcqa-filtered": {
           "display_name": "MedMCQA",
           "has_tsne": false,
-          "num_cases": 1187
+          "num_cases": 1181
         },
         "nejm-cpc": {
           "display_name": "NEJM CPC",
@@ -583,7 +583,7 @@
       }
     },
     "claude-3-7-sonnet-20250219": {
-      "display_name": "Claude 3.5 Sonnet",
+      "display_name": "Claude 3.7 Sonnet",
       "has_activations": false,
       "layer": null,
       "num_clusters": 0,
