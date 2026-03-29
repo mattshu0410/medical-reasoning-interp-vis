@@ -18,6 +18,32 @@ import type { CasePoolInfo } from "@/lib/labeling-types";
 
 export default function LabelerPage() {
   const { metadata, isLoading: metaLoading } = useMetadata();
+
+  // Cache: "model_dataset_caseIndex" -> { sentenceCount, caseId }
+  // Must be declared before useSamplePool so the callback can be passed in.
+  const caseInfoRef = useRef<Map<string, CasePoolInfo>>(new Map());
+  const [caseInfo, setCaseInfo] = useState<Map<string, CasePoolInfo>>(new Map());
+
+  // When an entire cases file is loaded, populate caseInfo for every case in it.
+  // This means sidebar status is correct for all cases in the file immediately,
+  // not just the one currently being viewed.
+  const handleCasesLoaded = useCallback(
+    (model: string, dataset: string, cases: import("@/lib/types").Case[]) => {
+      const map = caseInfoRef.current;
+      let changed = false;
+      cases.forEach((c, idx) => {
+        const key = `${model}_${dataset}_${idx}`;
+        const existing = map.get(key);
+        if (existing?.caseId !== c.id || existing?.sentenceCount !== c.sentences.length) {
+          map.set(key, { sentenceCount: c.sentences.length, caseId: c.id });
+          changed = true;
+        }
+      });
+      if (changed) setCaseInfo(new Map(map));
+    },
+    []
+  );
+
   const {
     pool,
     currentItem,
@@ -25,7 +51,7 @@ export default function LabelerPage() {
     selectedIndex,
     isLoading: poolLoading,
     navigateTo,
-  } = useSamplePool();
+  } = useSamplePool({ onCasesLoaded: handleCasesLoaded });
 
   const {
     ratings,
@@ -45,21 +71,6 @@ export default function LabelerPage() {
   } = useRaterIdentity();
 
   const [helpOpen, setHelpOpen] = useState(false);
-
-  // Cache: "model_dataset_caseIndex" -> { sentenceCount, caseId }
-  const caseInfoRef = useRef<Map<string, CasePoolInfo>>(new Map());
-  const [caseInfo, setCaseInfo] = useState<Map<string, CasePoolInfo>>(new Map());
-
-  // Update cache when a case loads
-  useEffect(() => {
-    if (!currentItem || !currentCase) return;
-    const key = `${currentItem.model}_${currentItem.dataset}_${currentItem.caseIndex}`;
-    const map = caseInfoRef.current;
-    if (!map.has(key)) {
-      map.set(key, { sentenceCount: currentCase.sentences.length, caseId: currentCase.id });
-      setCaseInfo(new Map(map));
-    }
-  }, [currentItem, currentCase]);
 
   // Pull server ratings on startup, push local changes to server
   const handleServerData = useCallback(
